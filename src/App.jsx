@@ -4,7 +4,7 @@ import Board from './pages/Boards/_id'
 export default function MyApp() {
   return (
     <>
-      <Board></Board>
+      <Board />
     </>
   )
 }
