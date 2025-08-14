@@ -26,6 +26,7 @@ export default function Recent() {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        sx={{ color: 'text.primary' }}
         endIcon={<ExpandMoreIcon />}
       >
         Recent
@@ -36,6 +37,11 @@ export default function Recent() {
         open={open}
         onClose={handleClose}
         slotProps={{
+          paper: {
+            sx: {
+              bgcolor: 'primary.dark'
+            }
+          },
           list: {
             'aria-labelledby': 'basic-button'
           }

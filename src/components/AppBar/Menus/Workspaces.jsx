@@ -10,7 +10,7 @@ import ContentCut from '@mui/icons-material/ContentCut'
 import ContentCopy from '@mui/icons-material/ContentCopy'
 import ContentPaste from '@mui/icons-material/ContentPaste'
 import Cloud from '@mui/icons-material/Cloud'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 export default function Workspaces() {
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -30,7 +30,8 @@ export default function Workspaces() {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        endIcon={<ExpandMoreIcon/>}
+        sx={{ color: 'text.primary' }}
+        endIcon={<ExpandMoreIcon />}
       >
         Workspaces
       </Button>
@@ -40,6 +41,11 @@ export default function Workspaces() {
         open={open}
         onClose={handleClose}
         slotProps={{
+          paper: {
+            sx: {
+              bgcolor: 'primary.dark'
+            }
+          },
           list: {
             'aria-labelledby': 'basic-button'
           }
@@ -50,7 +56,7 @@ export default function Workspaces() {
             <ContentCut fontSize="small" />
           </ListItemIcon>
           <ListItemText>Cut</ListItemText>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          <Typography variant="body2" sx={{ color: 'text.primary' }}>
             ⌘X
           </Typography>
         </MenuItem>
@@ -59,7 +65,7 @@ export default function Workspaces() {
             <ContentCopy fontSize="small" />
           </ListItemIcon>
           <ListItemText>Copy</ListItemText>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          <Typography variant="body2" sx={{ color: 'text.primary' }}>
             ⌘C
           </Typography>
         </MenuItem>
@@ -68,7 +74,7 @@ export default function Workspaces() {
             <ContentPaste fontSize="small" />
           </ListItemIcon>
           <ListItemText>Paste</ListItemText>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          <Typography variant="body2" sx={{ color: 'text.primary' }}>
             ⌘V
           </Typography>
         </MenuItem>

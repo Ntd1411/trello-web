@@ -28,6 +28,12 @@ export default function Profile() {
           aria-controls={open ? 'account-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
+          sx={{
+            bgcolor: 'text.primary',
+            '&:hover': {
+              bgcolor: 'text.primary'
+            }
+          }}
         >
           <Avatar sx={{ width: 32, height: 32 }} src='src\assets\mdi--trello.svg'>M</Avatar>
         </IconButton>
@@ -42,6 +48,7 @@ export default function Profile() {
           paper: {
             elevation: 0,
             sx: {
+              bgcolor: 'primary.dark',
               overflow: 'visible',
               filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
               mt: 1.5,
@@ -59,7 +66,7 @@ export default function Profile() {
                 right: 14,
                 width: 10,
                 height: 10,
-                bgcolor: 'background.paper',
+                bgcolor: 'primary.dark',
                 transform: 'translateY(-50%) rotate(45deg)',
                 zIndex: 0
               }

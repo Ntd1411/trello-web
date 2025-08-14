@@ -26,6 +26,7 @@ export default function Starred() {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        sx={{ color: 'text.primary' }}
         endIcon={<ExpandMoreIcon />}
       >
         Starred
@@ -36,6 +37,11 @@ export default function Starred() {
         open={open}
         onClose={handleClose}
         slotProps={{
+          paper: {
+            sx: {
+              bgcolor: 'primary.dark'
+            }
+          },
           list: {
             'aria-labelledby': 'basic-button'
           }

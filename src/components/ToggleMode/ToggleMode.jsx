@@ -4,12 +4,15 @@ import { IconButton } from '@mui/material'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import Tooltip from '@mui/material/Tooltip'
-// import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness'
+import theme from '~/theme'
 
 function ToggleMode() {
   const { mode, setMode } = useColorScheme()
   if (!mode) {
     return null
+  }
+  if (mode === 'system') {
+    setMode('light')
   }
   const getIcon = (mode) => {
     if (mode === 'dark') {
@@ -25,9 +28,6 @@ function ToggleMode() {
         </Tooltip>
       )
     }
-    // else if (mode === 'system') {
-    //   return <SettingsBrightnessIcon />
-    // }
   }
   function toggle() {
     if (mode === 'dark') {
@@ -35,9 +35,6 @@ function ToggleMode() {
     } else if (mode === 'light') {
       setMode('dark')
     }
-    // else if (mode === 'system') {
-    //   setMode('dark')
-    // }
   }
   return (
     <IconButton
