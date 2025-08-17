@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { Box, Tooltip } from '@mui/material'
 import Chip from '@mui/material/Chip'
@@ -10,8 +11,9 @@ import Avatar from '@mui/material/Avatar'
 import AvatarGroup from '@mui/material/AvatarGroup'
 import Button from '@mui/material/Button'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
+import { capitalize } from '~/utils/formatter'
 
-function BoardBar() {
+function BoardBar({ board }) {
   return (
     <>
       <Box px={2} sx={{
@@ -29,11 +31,11 @@ function BoardBar() {
           <Chip sx={{
             color: 'text.primary',
             backgroundColor: 'transparent'
-          }} icon={<DashboardIcon />} label="My dashboard" clickable />
+          }} icon={<DashboardIcon />} label={board?.title} clickable />
           <Chip sx={{
             color: 'text.primary',
             backgroundColor: 'transparent'
-          }} icon={<VpnLockIcon />} label="Public/ Private Workspace" clickable />
+          }} icon={<VpnLockIcon />} label={capitalize(board?.type)} clickable />
           <Chip sx={{
             color: 'text.primary',
             backgroundColor: 'transparent'

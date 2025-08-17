@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import Button from '@mui/material/Button'
 import { Card as MuiCard } from '@mui/material'
@@ -9,62 +10,84 @@ import CommentIcon from '@mui/icons-material/Comment'
 import AttachmentIcon from '@mui/icons-material/Attachment'
 import Typography from '@mui/material/Typography'
 import PropTypes from 'prop-types'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 
 Card.propTypes = {
   temporaryHideMedia: PropTypes.bool
 }
 
-function Card({ temporaryHideMedia }) {
-  if (temporaryHideMedia) {
-    return (
-      <>
-        <MuiCard
-          sx={{
-            cursor: 'pointer',
-            boxShadow: '0 1px 1px rgba(0, 0 , 0, 0.2)',
-            color: 'text.card',
-            overflow: 'unset'
-          }}>
-          <CardContent sx={{ p: 1, '&:last-child': { paddingBottom: 1 } }}>
-            <Typography>Test card</Typography>
-          </CardContent>
-        </MuiCard>
-      </>
-    )
+function Card({ card }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: card._id, data: { ...card } })
+
+  const dndKitCardStyles = {
+    transform: CSS.Translate.toString(transform),
+    transition,
+    opacity: isDragging ? '0.5' : undefined,
+    border: isDragging ? '1px solid #593dbeff' : undefined,
+    // zIndex: isDragging ? 1000 : undefined,
+    boxShadow: isDragging ? 'rgba(149, 157, 165, 0.2) 0px 8px 24px' : undefined
+    // touchAction: 'none',
+  }
+  function shouldShowCardAction() {
+    return !!card?.memberIds?.length && !!card?.comments?.length && !!card?.attachments?.length
   }
   return (
     <MuiCard
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={dndKitCardStyles}
       sx={{
         cursor: 'pointer',
         boxShadow: '0 1px 1px rgba(0, 0 , 0, 0.2)',
         color: 'text.card',
-        overflow: 'unset'
+        overflow: card.FE_PlaceholderCard ? 'hidden' : 'unset',
+        height: card.FE_PlaceholderCard ? '0px' : 'unset'
       }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://i.pinimg.com/1200x/e6/34/d3/e634d384fb0c31d7245d70d6f70f830d.jpg"
-        title="green iguana"
-      />
-      <CardContent sx={{ p: 1, '&:last-child': { paddingBottom: 1 } }}>
-        <Typography>Lizard</Typography>
+      {card?.cover &&
+        <CardMedia
+          sx={{ height: 140 }}
+          image={card.cover}
+          title="green iguana"
+        />
+      }
+      <CardContent sx={{ p: card.FE_PlaceholderCard ? 0 : 1, '&:last-child': { paddingBottom: 1 } }}>
+        <Typography>{card?.title}</Typography>
       </CardContent>
-      <CardActions sx={{ p: '0 4px 8px' }}>
-        <Button
-          sx={{ color: (theme) => `${theme.vars.palette.primary.light} !important` }}
-          startIcon={<GroupIcon sx={{ color: (theme) => `${theme.vars.palette.primary.light} !important` }} />}
-          size="small"
-        >20</Button>
-        <Button
-          sx={{ color: (theme) => `${theme.vars.palette.primary.light} !important` }}
-          startIcon={<CommentIcon sx={{ color: (theme) => `${theme.vars.palette.primary.light} !important` }} />}
-          size="small"
-        >20</Button>
-        <Button
-          sx={{ color: (theme) => `${theme.vars.palette.primary.light} !important` }}
-          startIcon={<AttachmentIcon sx={{ color: (theme) => `${theme.vars.palette.primary.light} !important` }} />}
-          size="small"
-        >20</Button>
-      </CardActions>
+      {shouldShowCardAction() &&
+        <CardActions sx={{ p: '0 4px 8px' }}>
+          {card?.memberIds?.length > 0 &&
+            <Button
+              sx={{ color: (theme) => `${theme.vars.palette.primary.light} !important` }}
+              startIcon={<GroupIcon sx={{ color: (theme) => `${theme.vars.palette.primary.light} !important` }} />}
+              size="small"
+            >{card?.memberIds?.length}</Button>
+          }
+
+          {card?.comments?.length > 0 &&
+            <Button
+              sx={{ color: (theme) => `${theme.vars.palette.primary.light} !important` }}
+              startIcon={<CommentIcon sx={{ color: (theme) => `${theme.vars.palette.primary.light} !important` }} />}
+              size="small"
+            >{card?.comments?.length}</Button>
+          }
+          {card?.attachments?.length > 0 &&
+            <Button
+              sx={{ color: (theme) => `${theme.vars.palette.primary.light} !important` }}
+              startIcon={<AttachmentIcon sx={{ color: (theme) => `${theme.vars.palette.primary.light} !important` }} />}
+              size="small"
+            >{card?.attachments?.length}</Button>
+          }
+        </CardActions>
+      }
     </MuiCard>
   )
 }

@@ -107,8 +107,8 @@ const theme = createTheme({
       styleOverrides: {
         body: {
           '*::-webkit-scrollbar': {
-            width: '5px',
-            height: '5px'
+            width: '3px',
+            height: '3px'
           },
           '*::-webkit-scrollbar-thumb': {
             backgroundColor: '#a1a1a1ff',
